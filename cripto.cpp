@@ -59,7 +59,8 @@ void encryption(std::string& message)
 		}
 	}
 	std::cout << std::endl << "После шифрования: ";
-	for (int i = 0; i < message.size(); i++)
+// Более безопасно использовать unsigned int в цикле for (), так как нам необходима только положительная часть; К тому же i++ занимает больше памяти, чем ++i
+	for (unsigned int i = 0; i < message.size(); ++i)
 	{
 		int basis = 0;
 
@@ -87,13 +88,15 @@ void decoding(std::string& message)
 	get_private_key(d); // Получаем закрытый ключ
 	
 	std::cout << "До расшифрования: ";
-	for (auto it : message)
+// Здесь можно увеличить производительность используя вместо копии объекта константную ссылку 
+	for (const auto& it : message)
 	{
 		std::cout << int(it) << " ";
 	}
 
 	std::cout << std::endl << "После расшифрования: ";
-	for (int i = 0; i < message.size(); i++)
+// Аналогично тому, что было описано выше
+	for (unsigned int i = 0; i < message.size(); ++i)
 	{
 		int basis = int(message[i]); // Получаем код зашифрованной буквы
 
